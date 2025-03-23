@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "docker:start": "docker-compose up -d",
+    "db:start": "docker-compose up -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
