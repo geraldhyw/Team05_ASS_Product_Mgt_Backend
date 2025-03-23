@@ -1,9 +1,9 @@
 CREATE DATABASE IF NOT EXISTS mysqldb;
 
-USE mysqldb;
+-- USE mysqldb;
 
-CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255) UNIQUE,
-  password VARCHAR(255)
-);
+-- CREATE TABLE IF NOT EXISTS users (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   username VARCHAR(255) UNIQUE,
+--   password VARCHAR(255)
+-- );

@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-
 // GET all products
+// const getAll = async (req, res) => {
+
+// }
 router.get('/', (req, res) => {
     res.send('/products/testing')
 })
@@ -15,4 +15,3 @@ router.get('/', (req, res) => {
 
 // UPDATE existing product
 
-module.exports = router;

@@ -1,30 +1,25 @@
-const express = require("express");
-const mysql = require('mysql2')
+const express = require("express")
+const sequelize = require('./config')
+const productsRoute = require("./routes/products");
+const { seedData } = require("./seed");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json())
 
-const db = mysql.createConnection({
-  host: 'localhost', // or ip address
-  user: "user123",
-  password: 'password123',
-  database: 'mysqldb'
-})
+sequelize.sync({ force: false })  // Set force: true to drop and recreate tables
+  .then(() => {
+    console.log('Database started and tables created!')
+    seedData()
+  })
+  .catch(err => {
+    console.error('Error syncing database: ', err)
+  });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL:", err.stack)
-    return
-  }
-  console.log("Connected to MySQL!")
-})
 
-const productsRoute = require("./routes/products");
-
-app.use("/products", productsRoute);
+app.use("/products", productsRoute)
 
 app.listen(port, () => {
-  console.log(`Node.js HTTP server is running on port ${port}`);
+  console.log(`Node.js HTTP server is running on port ${port}`)
 });
