@@ -10,6 +10,12 @@ async function seedData() {
 
 async function seedUser() {
     try {
+        const count = await User.count()
+        if (count > 0) {
+            console.log('User table already has data. Skipping seed.')
+            return
+        }
+
         await User.bulkCreate([
             { username: 'alice', password: 'password123' },
             { username: 'bob', password: 'password123' },
@@ -25,6 +31,11 @@ async function seedUser() {
 
 async function seedProducts() {
     try {
+        const count = await Product.count()
+        if (count > 0) {
+            console.log('Product table already has data. Skipping seed.')
+            return
+        } 
         await Product.bulkCreate(products, {
             ignoreDuplicates: true
         })

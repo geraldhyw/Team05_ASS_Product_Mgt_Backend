@@ -1,18 +1,11 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const productsController = require("../controllers/products")
 
 // GET all products
-router.get('/', (req, res) => {
-    res.send('/products/testing')
-})
+router.get('/', productsController.getAllProducts)
 
 // GET single product
+router.get('/:productID', productsController.getSingleProduct)
 
-
-// POST new product
-
-// DELETE single product
-
-// UPDATE existing product
-
-module.exports = router;
+module.exports = router

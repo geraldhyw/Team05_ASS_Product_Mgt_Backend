@@ -6,4 +6,4 @@ const sequelize = new Sequelize('mysqldb', 'root', 'root123', {
     logging: console.log,
 })
 
-module.exports = sequelize;
+module.exports = sequelize
