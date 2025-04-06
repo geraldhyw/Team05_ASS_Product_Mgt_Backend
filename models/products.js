@@ -33,10 +33,6 @@ const Product = sequelize.define('products', {
     fuelType: {
         type: DataTypes.STRING(255),
         allowNull: false
-    },
-    bookedOn: {
-        type: DataTypes.JSON,
-        allowNull: false
     }
 }, {
     timestamps: true

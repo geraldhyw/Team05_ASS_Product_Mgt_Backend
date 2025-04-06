@@ -1,10 +1,12 @@
 const User = require('./models/users')
 const Product = require('./models/products')
+const ProductBooking = require('./models/productBookings')
 
 async function seedData() {
     console.log('Starting data seeding..')
     await seedUser()
     await seedProducts()
+    await seedProductBookings()
     console.log('Data seeded successfully!')
 }
 
@@ -45,6 +47,28 @@ async function seedProducts() {
     }
 }
 
+async function seedProductBookings() {
+    try {
+        const count = await ProductBooking.count()
+        if (count > 0) {
+            console.log('Product booking table already has data. Skipping seed.')
+            return
+        }
+
+        await ProductBooking.bulkCreate([
+            { productID: 2, date: '2025-01-10T00:00:00.000Z' },
+            { productID: 2, date: '2025-01-11T00:00:00.000Z' },
+            { productID: 2, date: '2025-01-20T00:00:00.000Z' },
+            { productID: 2, date: '2025-01-25T00:00:00.000Z' },
+        ], {
+            ignoreDuplicates: true
+        })
+        console.log('Product booking data seeded successfully!')
+    } catch (error) {
+        console.error('Error seeding product booking data:', error)
+    }
+}
+
 const products = [
     { 
         createdBy: 1, 
@@ -52,8 +76,7 @@ const products = [
         vehicleModel: 'Honda Vezel 2021', 
         transmissionType: 'Automatic', 
         pricePerDay: 80, 
-        fuelType: 'Petrol', 
-        bookedOn: {}
+        fuelType: 'Petrol',
     },
     { 
         createdBy: 2, 
@@ -61,8 +84,7 @@ const products = [
         vehicleModel: 'Toyota Camry 2020', 
         transmissionType: 'Automatic', 
         pricePerDay: 100, 
-        fuelType: 'Hybrid', 
-        bookedOn: {}
+        fuelType: 'Hybrid'
     },
     { 
         createdBy: 3, 
@@ -70,8 +92,7 @@ const products = [
         vehicleModel: 'Ford Galaxy 2019', 
         transmissionType: 'Manual', 
         pricePerDay: 90, 
-        fuelType: 'Diesel', 
-        bookedOn: {}
+        fuelType: 'Diesel',
     },
     { 
         createdBy: 1, 
@@ -79,8 +100,7 @@ const products = [
         vehicleModel: 'Toyota Land Cruiser 2020', 
         transmissionType: 'Automatic', 
         pricePerDay: 130, 
-        fuelType: 'Diesel', 
-        bookedOn: {}
+        fuelType: 'Diesel',
     },
     { 
         createdBy: 2, 
@@ -88,8 +108,7 @@ const products = [
         vehicleModel: 'Honda Accord 2020', 
         transmissionType: 'Automatic', 
         pricePerDay: 90, 
-        fuelType: 'Hybrid', 
-        bookedOn: {}
+        fuelType: 'Hybrid',
     },
     { 
         createdBy: 3, 
@@ -97,8 +116,7 @@ const products = [
         vehicleModel: 'Mercedes-Benz V-Class 2021', 
         transmissionType: 'Automatic', 
         pricePerDay: 140, 
-        fuelType: 'Diesel', 
-        bookedOn: {}
+        fuelType: 'Diesel',
     },
     { 
         createdBy: 1, 
@@ -106,8 +124,7 @@ const products = [
         vehicleModel: 'BMW X5 2020', 
         transmissionType: 'Automatic', 
         pricePerDay: 150, 
-        fuelType: 'Petrol', 
-        bookedOn: {}
+        fuelType: 'Petrol',
     },
     { 
         createdBy: 2, 
@@ -115,8 +132,7 @@ const products = [
         vehicleModel: 'Audi A4 2021', 
         transmissionType: 'Automatic', 
         pricePerDay: 110, 
-        fuelType: 'Diesel', 
-        bookedOn: {}
+        fuelType: 'Diesel',
     },
     { 
         createdBy: 3, 
@@ -124,8 +140,7 @@ const products = [
         vehicleModel: 'Volkswagen Sharan 2020', 
         transmissionType: 'Automatic', 
         pricePerDay: 120, 
-        fuelType: 'Diesel', 
-        bookedOn: {}
+        fuelType: 'Diesel',
     },
     {
         createdBy: 1,
@@ -133,8 +148,7 @@ const products = [
         vehicleModel: 'Tesla Model X 2021',
         transmissionType: 'Manual', 
         pricePerDay: 200,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 2,
@@ -142,8 +156,7 @@ const products = [
         vehicleModel: 'BMW i4 2022',
         transmissionType: 'Manual', 
         pricePerDay: 180,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 3,
@@ -151,8 +164,7 @@ const products = [
         vehicleModel: 'Rivian R1S 2022',
         transmissionType: 'Manual',
         pricePerDay: 220,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 1,
@@ -160,8 +172,7 @@ const products = [
         vehicleModel: 'Ford Mustang Mach-E 2021',
         transmissionType: 'Manual',
         pricePerDay: 160,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 2,
@@ -169,8 +180,7 @@ const products = [
         vehicleModel: 'Lucid Air 2022',
         transmissionType: 'Manual', 
         pricePerDay: 250,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 3,
@@ -178,8 +188,7 @@ const products = [
         vehicleModel: 'Volkswagen ID.4 2021',
         transmissionType: 'Manual',
         pricePerDay: 170,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 1,
@@ -187,8 +196,7 @@ const products = [
         vehicleModel: 'Nissan Ariya 2022',
         transmissionType: 'Manual',
         pricePerDay: 210,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     },
     {
         createdBy: 2,
@@ -196,8 +204,7 @@ const products = [
         vehicleModel: 'Porsche Taycan 2021',
         transmissionType: 'Manual',
         pricePerDay: 270,
-        fuelType: 'Electric',
-        bookedOn: {}
+        fuelType: 'Electric'
     }
 ]
 
