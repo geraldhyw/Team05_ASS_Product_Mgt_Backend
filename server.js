@@ -8,10 +8,10 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-await sequelize.sync({ force: false })  // Set force: true to drop and recreate tables
-  .then(async () => {
+sequelize.sync({ force: false })  // Set force: true to drop and recreate tables
+  .then(() => {
     console.log('Database started and tables created!')
-    await seedData()
+    seedData()
   })
   .catch(err => {
     console.error('Error syncing database: ', err)
