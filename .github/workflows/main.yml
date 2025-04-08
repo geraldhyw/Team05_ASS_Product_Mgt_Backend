@@ -13,6 +13,7 @@ jobs:
     services:
       mysql-test:
         image: mysql:latest
+        container_name: mysql-db-test
         env:
           MYSQL_ROOT_PASSWORD: root123 # Set the root password
           MYSQL_DATABASE: mysqldb
@@ -40,7 +41,7 @@ jobs:
         run: docker ps -a
 
       - name: View MySQL container logs
-        run: docker logs mysql-test
+        run: docker logs mysql-db-test
 
       # Ensure MySQL is ready before running tests
       - name: Wait for MySQL to be ready
