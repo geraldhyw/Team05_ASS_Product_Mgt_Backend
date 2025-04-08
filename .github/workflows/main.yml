@@ -58,4 +58,6 @@ jobs:
       #     echo "MySQL is ready!"
 
       - name: Run tests
-        run: npm run test:pipe
+        run: |
+          CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
+          DB_HOST=$CONTAINER_ID npm run test:pipe
