@@ -8,14 +8,28 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-sequelize.sync({ force: false })  // Set force: true to drop and recreate tables
-  .then(() => {
-    console.log('Database started and tables created!')
-    seedData()
-  })
-  .catch(err => {
-    console.error('Error syncing database: ', err)
-  })
+const maxRetries = 5; // Maximum number of retries
+const retryDelay = 5000; // Delay between retries in milliseconds (5 seconds)
+
+function syncDatabase(retries = 0) {
+  sequelize.sync({ force: false }) // Set force: true to drop and recreate tables
+    .then(() => {
+      console.log('Database started and tables created!');
+      seedData(); // Call your seed function after the sync is successful
+    })
+    .catch(err => {
+      console.error('Error syncing database: ', err);
+      
+      if (retries < maxRetries) {
+        console.log(`Retrying... Attempt #${retries + 1}`);
+        setTimeout(() => syncDatabase(retries + 1), retryDelay);
+      } else {
+        console.error('Max retries reached. Could not sync the database.');
+      }
+    });
+}
+
+syncDatabase(); // Start the sync process
 
 
 app.use("/products", productsRoute)
