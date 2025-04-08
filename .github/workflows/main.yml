@@ -21,8 +21,8 @@ jobs:
         options:
           --health-cmd="mysqladmin ping --host=localhost --user=root --password=root123"
           --health-timeout=5s
-          --health-retries=3
-          --health-start-period=10s
+          --health-retries=10
+          --health-start-period=30s
 
     steps:
       - name: Checkout repository
@@ -35,16 +35,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      # Ensure MySQL is ready before running tests
-      - name: Wait for MySQL to be ready
-        run: |
-          echo "Waiting for MySQL to be ready..."
-          until mysqladmin ping --host=localhost --port=3307 --user=root --password=root123 --silent; do
-            echo "Waiting for MySQL..."
-            sleep 5
-          done
-          echo "MySQL is ready!"
 
       - name: Run tests
         run: npm test
