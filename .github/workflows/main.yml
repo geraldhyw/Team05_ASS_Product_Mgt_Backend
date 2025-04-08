@@ -38,15 +38,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Check MySQL container existence
-      #   run: docker ps -a
-
-      # - name: Get MySQL container ID
-      #   run: |
-      #     CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
-      #     echo "MySQL Container ID: $CONTAINER_ID"
-      #     docker logs $CONTAINER_ID
-
       - name: Get MySQL container IP address
         run: |
           CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
@@ -54,16 +45,15 @@ jobs:
           echo "MySQL container IP is $CONTAINER_IP"
           echo "CONTAINER_IP=$CONTAINER_IP" >> $GITHUB_ENV
 
-      # Ensure MySQL is ready before running tests
-      # - name: Wait for MySQL to be ready
-      #   run: |
-      #     CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
-      #     echo "Waiting for MySQL to be ready..."
-      #     until mysqladmin ping --host=$CONTAINER_IP --port=3306 --user=root --password=root123 --silent; do
-      #       echo "Waiting for MySQL..."
-      #       sleep 5
-      #     done
-      #     echo "MySQL is ready!"
+      - name: Wait for MySQL to be ready
+        run: |
+          CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
+          echo "Waiting for MySQL to be ready..."
+          until mysqladmin ping --host=$CONTAINER_IP --port=3306 --user=root --password=root123 --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+          echo "MySQL is ready!"
 
       - name: Run tests
         run: DB_HOST=$CONTAINER_IP npm run test:pipe
