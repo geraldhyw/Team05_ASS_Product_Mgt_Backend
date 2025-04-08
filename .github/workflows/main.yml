@@ -58,4 +58,4 @@ jobs:
       #     echo "MySQL is ready!"
 
       - name: Run tests
-        run: npm test:pipe
+        run: npm run test:pipe
