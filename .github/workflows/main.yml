@@ -36,5 +36,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Ensure MySQL is ready before running tests
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          until mysqladmin ping --host=localhost --port=3307 --user=root --password=root123 --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+          echo "MySQL is ready!"
+
       - name: Run tests
         run: npm test
