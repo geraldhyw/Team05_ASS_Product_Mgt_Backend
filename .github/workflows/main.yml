@@ -26,15 +26,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2 # Checkout the repository to run tests
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16" # Specify the Node.js version you are using
+          node-version: "16"
 
       - name: Install dependencies
-        run: npm install # Install dependencies (assuming you're using npm)
+        run: npm install
+
+      # Ensure MySQL is ready before running tests
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          until mysqladmin ping --host=localhost --port=3307 --user=root --password=root123 --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+          echo "MySQL is ready!"
 
       - name: Run tests
-        run: npm test # Run your test command, you can modify this to fit your testing framework
+        run: npm test
