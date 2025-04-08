@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: View MySQL container logs
+        run: docker logs mysql-test
+
       # Ensure MySQL is ready before running tests
       - name: Wait for MySQL to be ready
         run: |
