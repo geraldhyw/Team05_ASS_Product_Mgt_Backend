@@ -1,0 +1,40 @@
+name: Run test and deploy to docker image to ECS
+
+# Trigger the workflow when pushing to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql-test:
+        image: mysql:latest
+        container_name: mysql-db-test
+        environment:
+          MYSQL_ROOT_PASSWORD: root123 # Set the root password
+          MYSQL_USER: user123 # Optional: Create a non-root user
+          MYSQL_PASSWORD: password123 # Password for the non-root user
+        ports:
+          - "3307:3306"
+        volumes:
+          - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        options: --health-cmd='mysqladmin ping --host=localhost' --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2 # Checkout the repository to run tests
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # Specify the Node.js version you are using
+
+      - name: Install dependencies
+        run: npm install # Install dependencies (assuming you're using npm)
+
+      - name: Run tests
+        run: npm test # Run your test command, you can modify this to fit your testing framework
