@@ -13,7 +13,6 @@ jobs:
     services:
       mysql-test:
         image: mysql:latest
-        container_name: mysql-db-test
         env:
           MYSQL_ROOT_PASSWORD: root123 # Set the root password
           MYSQL_DATABASE: mysqldb
@@ -40,8 +39,11 @@ jobs:
       - name: Check MySQL container existence
         run: docker ps -a
 
-      - name: View MySQL container logs
-        run: docker logs mysql-db-test
+      - name: Get MySQL container ID
+        run: |
+          CONTAINER_ID=$(docker ps -q --filter "ancestor=mysql:latest")
+          echo "MySQL Container ID: $CONTAINER_ID"
+          docker logs $CONTAINER_ID
 
       # Ensure MySQL is ready before running tests
       - name: Wait for MySQL to be ready
