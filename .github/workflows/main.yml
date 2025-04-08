@@ -18,6 +18,7 @@ jobs:
           MYSQL_DATABASE: mysqldb
         ports:
           - "3307:3306"
+        options: --health-cmd='mysqladmin ping --host=localhost' --health-timeout=5s --health-retries=3 --health-start-period=10s
 
     steps:
       - name: Checkout repository
