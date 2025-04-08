@@ -75,8 +75,8 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag product-microservice:latest 409151997352.dkr.ecr.ap-southeast-1.amazonaws.com/ass-backend:latest
+          docker tag product-microservice:latest 409151997352.dkr.ecr.ap-southeast-1.amazonaws.com/ass-backend:product-microservice-latest
 
       - name: Push Docker image to ECR
         run: |
-          docker push 409151997352.dkr.ecr.ap-southeast-1.amazonaws.com/ass-backend:latest
+          docker push 409151997352.dkr.ecr.ap-southeast-1.amazonaws.com/ass-backend:product-microservice-latest
