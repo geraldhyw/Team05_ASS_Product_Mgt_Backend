@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mysqltest:
+      mysql-test:
         image: mysql:latest
         env:
           MYSQL_ROOT_PASSWORD: root123 # Set the root password
@@ -21,7 +21,7 @@ jobs:
         ports:
           - "3306:3306"
         options:
-          --health-cmd="mysqladmin ping --host=localhost --user=root --password=root123"
+          --health-cmd="mysqladmin ping --host=mysql-test --user=root --password=root123"
           --health-timeout=5s
           --health-retries=10
           --health-start-period=30s
@@ -51,7 +51,7 @@ jobs:
       - name: Wait for MySQL to be ready
         run: |
           echo "Waiting for MySQL to be ready..."
-          until mysqladmin ping --host=localhost --port=3306 --user=root --password=root123; do
+          until mysqladmin ping --host=mysql-test --port=3306 --user=root --password=root123 --silent; do
             echo "Waiting for MySQL..."
             sleep 5
           done
