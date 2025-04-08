@@ -54,7 +54,6 @@ const getAllProducts = async (req, res) => {
         const bookedProductIDs = bookedProducts.map((p) => p.productID)
 
         if (bookedProductIDs.length > 0) {
-            console.log('yes')
             whereConditions.id = { [Sequelize.Op.notIn]: bookedProductIDs }
         }
 

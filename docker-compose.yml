@@ -13,3 +13,15 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     #   - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql
+  mysql-test:
+    image: mysql:latest
+    container_name: mysql-db-test
+    environment:
+      MYSQL_ROOT_PASSWORD: root123 # Set the root password
+      MYSQL_USER: user123 # Optional: Create a non-root user
+      MYSQL_PASSWORD: password123 # Password for the non-root user
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    #   - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql
