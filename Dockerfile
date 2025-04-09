@@ -11,6 +11,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Ensure start.sh is executable (just in case)
+RUN chmod +x /app/devops/development/start.sh
+
 # Expose the port your app will run on
 EXPOSE 3000
 
