@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-const maxRetries = 5; // Maximum number of retries
+const maxRetries = 120; // Maximum number of retries
 const retryDelay = 5000; // Delay between retries in milliseconds (5 seconds)
 
 function syncDatabase(retries = 0) {
