@@ -15,7 +15,7 @@ COPY . .
 RUN chmod +x /app/devops/development/start.sh
 
 # Expose the port your app will run on
-EXPOSE 3000
+EXPOSE 3001
 
 # Command to start your application
 CMD ["npm", "start"]
