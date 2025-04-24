@@ -18,4 +18,4 @@ RUN chmod +x /app/devops/production/start.sh
 EXPOSE 3001
 
 # Command to start your application
-CMD ["npm", "start"]
+CMD ["npm", "start:prod"]
