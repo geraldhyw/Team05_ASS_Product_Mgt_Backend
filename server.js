@@ -29,7 +29,9 @@ function syncDatabase(retries = 0) {
     });
 }
 
-syncDatabase(); // Start the sync process
+if (process.env.NODE_ENV !== "production") {
+  syncDatabase(); // Start the sync process
+}
 
 
 app.use("/products", productsRoute)
